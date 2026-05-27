@@ -2,7 +2,7 @@ package com.gym.progreso_servicio.model;
 
 import java.time.LocalDate;
 
-import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,7 @@ public class Progreso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull("El ID del cliente es OBLIGATORIO")
+    @NotNull(message = "El ID del cliente es OBLIGATORIO")
     @Column(nullable = false)
     private Long clienteId; // Enlace lógico al microservicio de usuarios
 
