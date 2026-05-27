@@ -28,7 +28,7 @@ public class ProgresoService {
 
     public Progreso crearProgreso(Progreso progreso) {
         if (progreso.getFecha() == null) {
-            progreso.setFecha(LocalDate.now()); // Asigna fecha del servidor si no viene definida
+            progreso.setFecha(LocalDate.now()); 
         }
         return progresoRepository.save(progreso);
     }
