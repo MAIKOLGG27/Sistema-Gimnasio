@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gym.membrecias.model.membreciaModel;
 import com.gym.membrecias.service.membreciaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +34,7 @@ public class membreciaController {
     public List<membreciaModel> traerTodos(){
         return servicio.obtenerTodas();
     }
-
+    @Operation(summary = "obtiene un producto en base a una id otorgada")
     @GetMapping("/{id}")
     public membreciaModel obtenerPorId(@PathVariable Long id){
         return servicio.obtenerPorId(id);
