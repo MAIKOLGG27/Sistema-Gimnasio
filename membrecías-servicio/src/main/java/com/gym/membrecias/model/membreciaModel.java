@@ -35,7 +35,6 @@ public class membreciaModel {
 
     private String nombre;
    
-
     private Double precio;
 
     private Integer duracionDias;
