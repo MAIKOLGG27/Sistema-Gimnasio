@@ -1,45 +1,53 @@
 package com.gym.membrecias.controller;
 
-
-
 import java.util.List;
+import java.util.stream.Collectors;
 
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.gym.membrecias.model.membreciaModel;
 import com.gym.membrecias.service.membreciaService;
+import com.gym.membrecias.Assembler.AssemblerMembresia;
 
 import io.swagger.v3.oas.annotations.Operation;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
-
 
 @RestController
 @RequestMapping("/membresias")
 public class membreciaController {
 
-    
+    // 1. Añadimos @Autowired para que Spring inyecte el servicio
+    @Autowired
     private membreciaService servicio;
 
-    @GetMapping("/Listar")
-    public List<membreciaModel> traerTodos(){
-        return servicio.obtenerTodas();
-    }
-    @Operation(summary = "obtiene un producto en base a una id otorgada")
+    // 2. Inyectamos el Assembler que te faltaba
+    @Autowired
+    private AssemblerMembresia assembler;
+
+    // 3. Dejamos un solo método para buscar por ID y le agregamos HATEOAS
+    @Operation(summary = "Obtiene una membresía en base a una ID otorgada")
     @GetMapping("/{id}")
-    public membreciaModel obtenerPorId(@PathVariable Long id){
-        return servicio.obtenerPorId(id);
+    public ResponseEntity<EntityModel<membreciaModel>> obtenerPorId(@PathVariable Long id) {
+        membreciaModel membresia = servicio.obtenerPorId(id);
+        // Usamos el assembler para que también devuelva los links HATEOAS
+        return ResponseEntity.ok(assembler.toModel(membresia));
     }
-    
+
+    // 4. Corregimos la llamada al servicio (servicio.obtenerTodas)
+    @GetMapping
+    public ResponseEntity<CollectionModel<EntityModel<membreciaModel>>> listarTodas() {
+        List<EntityModel<membreciaModel>> membresias = servicio.obtenerTodas().stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+            
+        return ResponseEntity.ok(CollectionModel.of(membresias,
+            linkTo(methodOn(membreciaController.class).listarTodas()).withSelfRel()));
+    }
 
     @PostMapping("/crear")
     public membreciaModel guardarMembresia(@RequestBody membreciaModel mem) {
@@ -53,8 +61,6 @@ public class membreciaController {
 
     @DeleteMapping("/borrar/{id}")
     public void borrarMembresia(@PathVariable long id){
-        servicio.borrarMembresia(id);;
+        servicio.borrarMembresia(id);
     }
-    
-
 }

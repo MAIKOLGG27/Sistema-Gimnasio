@@ -14,13 +14,14 @@ public class membreciaService {
     @Autowired
     private membreciaRepository repo;
 
-    public List<membreciaModel> obtenerTodas(){
-        return repo.findAll();
-    }
-
+    // Dejamos solo este método para buscar por ID
     public membreciaModel obtenerPorId(Long id){
         return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Error la membresia con ese id no existe"));
+                .orElseThrow(() -> new RuntimeException("Error: La membresia con el id " + id + " no existe"));
+    }
+
+    public List<membreciaModel> obtenerTodas(){
+        return repo.findAll();
     }
 
     public membreciaModel guardarMembresia(membreciaModel mem){
@@ -29,8 +30,7 @@ public class membreciaService {
 
     public void borrarMembresia(Long id){
         if (!repo.existsById(id)){
-            throw new RuntimeException("Error no se puede borrar la membresia con ese id");
-
+            throw new RuntimeException("Error: no se puede borrar la membresia con ese id");
         }
         repo.deleteById(id);
     }
@@ -41,12 +41,6 @@ public class membreciaService {
             membresia.setPrecio(membresiaDetalles.getPrecio());
             membresia.setDuracionDias(membresiaDetalles.getDuracionDias());
             return repo.save(membresia);
-        }).orElseThrow(()-> new RuntimeException("no se puede actualizar la membresia no existe"));
+        }).orElseThrow(()-> new RuntimeException("No se puede actualizar, la membresia no existe"));
     }
-
-
-
-
-
-
 }

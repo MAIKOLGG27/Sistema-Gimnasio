@@ -28,14 +28,26 @@ public class membreciaModel {
     private Long id;
 
      @Schema(
-        description = "descripcion de la membresia",
-        example = "superpromo",
-        requiredMode = Schema.RequiredMode.NOT_REQUIRED
+        description = "Nombre de la membresia",
+        example = "Superpromo",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
 
     private String nombre;
+
+     @Schema(
+        description =  "Precio de la membresia",
+        example = "30.000",
+        requiredMode = Schema.RequiredMode.REQUIRED
+     )
    
     private Double precio;
+     
+     @Schema(
+        description = "Duracion de los dias",
+        example = "30",
+        requiredMode = Schema.RequiredMode.REQUIRED
+     )
 
     private Integer duracionDias;
 
