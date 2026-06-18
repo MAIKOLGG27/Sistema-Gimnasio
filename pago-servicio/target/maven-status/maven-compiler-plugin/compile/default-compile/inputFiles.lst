@@ -1,0 +1,11 @@
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/Controller/PagoController.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/Controller/PagoControllerv2.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/PagoServicioApplication.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/Repository/PagoRepository.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/Service/PagoService.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/assemblers/PagoModelAssembler.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/config/OpenApiConfig.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/config/SecurityConfig.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/exception/ErrorResponse.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/exception/GlobalExceptionHandler.java
+/mnt/e/Sistema-Gimnasio-main/pago-servicio/src/main/java/com/gym/pago_servicio/model/Pago.java
