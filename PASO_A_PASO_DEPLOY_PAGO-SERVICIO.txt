@@ -1,0 +1,95 @@
+PASO A PASO - Cómo llevar y ejecutar el microservicio "pago-servicio" en otra computadora
+
+================================================================================
+
+1. PREPARACIÓN EN TU COMPUTADORA ACTUAL
+
+1. Abre la terminal en la carpeta "pago-servicio"
+2. Ejecuta:
+
+   ./mvnw clean package -DskipTests
+
+3. Verifica que se genere el archivo:
+   target/pago-servicio-0.0.1-SNAPSHOT.jar
+
+================================================================================
+
+2. ARCHIVOS A COPIAR A LA OTRA COMPUTADORA
+
+Copia toda la carpeta "pago-servicio" o al menos estos archivos:
+
+- docker-compose.yml
+- Dockerfile
+- pom.xml
+- mvnw y mvnw.cmd
+- carpeta src/ (completa)
+- carpeta target/ (especialmente el .jar)
+
+================================================================================
+
+3. EN LA OTRA COMPUTADORA - PASO A PASO
+
+1. Instala Docker Desktop (si no lo tiene):
+   https://www.docker.com/products/docker-desktop/
+
+2. Copia la carpeta "pago-servicio" a la nueva computadora.
+
+3. Abre la terminal y navega a la carpeta:
+
+   cd ruta/de/la/carpeta/pago-servicio
+
+4. (Solo Linux/Mac) Da permisos:
+   chmod +x mvnw
+
+5. Construye el proyecto:
+   ./mvnw clean package -DskipTests
+
+6. Levanta los servicios con Docker:
+
+   docker compose down -v
+   docker compose up --build -d
+
+================================================================================
+
+4. VERIFICACIONES IMPORTANTES
+
+- Ver estado:
+  docker compose ps
+
+- Ver logs del microservicio:
+  docker compose logs -f pago-servicio
+
+- Ver logs de MySQL:
+  docker compose logs mysql
+
+================================================================================
+
+5. ACCESO AL MICROSERVICIO
+
+Abre en el navegador:
+
+→ Swagger: http://localhost:8084/swagger-ui/index.html
+   Usuario: admin
+   Contraseña: 1234
+
+================================================================================
+
+COMANDOS ÚTILES
+
+- Reiniciar servicio:      docker compose restart pago-servicio
+- Detener todo:            docker compose down
+- Eliminar todo + datos:   docker compose down -v
+- Logs en tiempo real:     docker compose logs -f pago-servicio
+
+================================================================================
+
+NOTAS IMPORTANTES
+
+- Asegúrate que los puertos 8084 y 3306 estén libres.
+- La primera vez puede tardar (descarga imágenes de Docker).
+- Si tienes problemas con la conexión a MySQL, revisa los logs.
+
+¡Listo! El microservicio debería estar funcionando.
+
+================================================================================
+Creado para: Sistema de Gimnasio - Microservicio de Pagos
