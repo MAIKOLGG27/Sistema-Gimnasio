@@ -1,0 +1,14 @@
+PASO A PASO - Como poner el Docker en los demás microservicios y subirlo al GitHub.
+
+
+1. Copiar Dockerfile, Docker-compose.yml y application-docker.properties(Si el microservicio no tiene security copien de entrenador-servicio , si tiene copien de pago-servicio).
+
+2. colocar los Dockerfile y Docker-compose.yml al inicio junto a src , mientras que dentro de src/main/resources se coloca el properties.
+
+3. Modificar los nombres y el puerto en Docker-compose y properties según corresponda.(solo cambien las palabras que hablas que hablen de los microservicios , en los url se cambia el final de la fila por el nombre que corresponda).
+
+4. Si quieren probarlo en Docker usen los códigos de PASO_A_PASO_DEPLOY_PAGO.(UNICAMENTE PUNTO 1 Y 3).
+
+5. Cuando terminen de probarlos , de los microservicios borren la carpeta target antes de intentar subirlos o pesaran mucho.
+
+6. Una vez subidos , si no pudieron probarlos avisen a Mauricio Valdivia para que los pruebe en su computadora ya que esta ya tiene Docker.
