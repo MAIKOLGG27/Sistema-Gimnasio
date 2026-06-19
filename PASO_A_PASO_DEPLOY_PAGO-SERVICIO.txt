@@ -24,7 +24,6 @@ Copia toda la carpeta "pago-servicio" o al menos estos archivos:
 - pom.xml
 - mvnw y mvnw.cmd
 - carpeta src/ (completa)
-- carpeta target/ (especialmente el .jar)
 
 ================================================================================
 
@@ -35,19 +34,15 @@ Copia toda la carpeta "pago-servicio" o al menos estos archivos:
 
 2. Copia la carpeta "pago-servicio" a la nueva computadora.
 
-3. Abre la terminal y navega a la carpeta:
-
-   cd ruta/de/la/carpeta/pago-servicio
+3. Abre el micro servicio en visual studio, abre la terminal con control + ñ y coloca esto:
+   mvn clean package -DskipTests
 
 4. (Solo Linux/Mac) Da permisos:
    chmod +x mvnw
 
-5. Construye el proyecto:
-   ./mvnw clean package -DskipTests
+5. Levanta los servicios con Docker:
 
-6. Levanta los servicios con Docker:
-
-   docker compose down -v
+   docker compose down -v 
    docker compose up --build -d
 
 ================================================================================
@@ -86,7 +81,7 @@ COMANDOS ÚTILES
 
 NOTAS IMPORTANTES
 
-- Asegúrate que los puertos 8084 y 3306 estén libres.
+- Asegúrate que los puertos estén libres.
 - La primera vez puede tardar (descarga imágenes de Docker).
 - Si tienes problemas con la conexión a MySQL, revisa los logs.
 
