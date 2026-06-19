@@ -6,9 +6,10 @@ PASO A PASO - Cómo llevar y ejecutar el microservicio "pago-servicio" en otra c
 
 1. Abre la terminal en la carpeta "pago-servicio"
 2. Ejecuta:
-
+    
    ./mvnw clean package -DskipTests
-
+2.1 En caso de error usa primero esto:
+      mvn clean package -DskipTests
 3. Verifica que se genere el archivo:
    target/pago-servicio-0.0.1-SNAPSHOT.jar
 
