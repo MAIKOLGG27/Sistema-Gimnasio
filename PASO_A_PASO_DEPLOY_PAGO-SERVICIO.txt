@@ -47,7 +47,7 @@ Copia toda la carpeta "pago-servicio" o al menos estos archivos:
 
 6. Levanta los servicios con Docker:
 
-   docker compose down
+   docker compose down -v
    docker compose up --build -d
 
 ================================================================================
