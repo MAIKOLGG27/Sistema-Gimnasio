@@ -2,12 +2,18 @@ package com.gym.progreso_servicio.controller;
 
 import com.gym.progreso_servicio.model.Progreso;
 import com.gym.progreso_servicio.service.ProgresoService;
+import com.gym.progreso_servicio.Assembler.AssemblerProgreso;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/progreso")
@@ -15,37 +21,52 @@ import java.util.List;
 public class ProgresoController {
 
     private final ProgresoService progresoService;
+    private final AssemblerProgreso assembler;
 
+    @Operation(summary = "Lista todos los progresos registrados")
     @GetMapping
-    public List<Progreso> obtenerTodos() {
-        return progresoService.obtenerTodos();
+    public ResponseEntity<CollectionModel<EntityModel<Progreso>>> obtenerTodos() {
+        List<EntityModel<Progreso>> progresos = progresoService.obtenerTodos().stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(CollectionModel.of(progresos,
+            linkTo(methodOn(ProgresoController.class).obtenerTodos()).withSelfRel()));
     }
 
+    @Operation(summary = "Obtiene un registro de progreso por ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Progreso> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<Progreso>> obtenerPorId(@PathVariable Long id) {
         return progresoService.obtenerPorId(id)
-                .map(ResponseEntity::ok)
+                .map(progreso -> ResponseEntity.ok(assembler.toModel(progreso)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Obtiene los registros de progreso de un cliente específico")
     @GetMapping("/cliente/{clientId}")
-    public List<Progreso> obtenerPorClienteId(@PathVariable Long clientId) {
-        return progresoService.obtenerPorClienteId(clientId);
+    public ResponseEntity<CollectionModel<EntityModel<Progreso>>> obtenerPorClienteId(@PathVariable Long clientId) {
+         List<EntityModel<Progreso>> progresos = progresoService.obtenerPorClienteId(clientId).stream()
+            .map(assembler::toModel)
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(CollectionModel.of(progresos,
+            linkTo(methodOn(ProgresoController.class).obtenerPorClienteId(clientId)).withSelfRel()));
     }
 
+    @Operation(summary = "Crea un nuevo registro de progreso")
     @PostMapping
-    public ResponseEntity<Progreso> crearProgreso(@RequestBody Progreso progreso) {
+    public ResponseEntity<EntityModel<Progreso>> crearProgreso(@RequestBody Progreso progreso) {
         Progreso creado = progresoService.crearProgreso(progreso);
-        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(assembler.toModel(creado));
     }
 
+    @Operation(summary = "Actualiza un registro de progreso")
     @PutMapping("/{id}")
-    public ResponseEntity<Progreso> actualizarProgreso(@PathVariable Long id, @RequestBody Progreso nuevoProgreso) {
+    public ResponseEntity<EntityModel<Progreso>> actualizarProgreso(@PathVariable Long id, @RequestBody Progreso nuevoProgreso) {
         return progresoService.actualizarProgreso(id, nuevoProgreso)
-                .map(ResponseEntity::ok)
+                .map(progreso -> ResponseEntity.ok(assembler.toModel(progreso)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Elimina un registro de progreso por ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarProgreso(@PathVariable Long id) {
         progresoService.eliminarProgreso(id);

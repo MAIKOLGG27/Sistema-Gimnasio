@@ -23,7 +23,7 @@ public class ProgresoService {
     }
 
     public List<Progreso> obtenerPorClienteId(Long clienteId) {
-        return progresoRepository.findByClienteId(clienteId);
+        return progresoRepository.findByClientId(clienteId);
     }
 
     public Progreso crearProgreso(Progreso progreso) {
