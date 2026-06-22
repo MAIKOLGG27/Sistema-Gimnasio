@@ -190,7 +190,7 @@ Las tablas se crean automáticamente al iniciar gracias a `spring.jpa.hibernate.
 
 ## Dependencias principales
 
-- Spring Boot 3.4.5 / 3.5.x (versión varía según el servicio)
+- Spring Boot 3.4.5
 - Spring Web
 - Spring Data JPA
 - Spring HATEOAS
