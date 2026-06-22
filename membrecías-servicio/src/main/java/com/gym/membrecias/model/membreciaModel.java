@@ -20,7 +20,7 @@ public class membreciaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(
-        description = "Identificador de membresia",
+        description = "Identificador de membrecia",
         example = "2",
         requiredMode = Schema.RequiredMode.REQUIRED
         
@@ -28,7 +28,7 @@ public class membreciaModel {
     private Long id;
 
      @Schema(
-        description = "Nombre de la membresia",
+        description = "Nombre de la membrecia",
         example = "Superpromo",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
@@ -36,7 +36,7 @@ public class membreciaModel {
     private String nombre;
 
      @Schema(
-        description =  "Precio de la membresia",
+        description =  "Precio de la membrecia",
         example = "30.000",
         requiredMode = Schema.RequiredMode.REQUIRED
      )
