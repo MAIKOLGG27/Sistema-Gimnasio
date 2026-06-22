@@ -14,13 +14,14 @@ import com.gym.progreso_servicio.model.Progreso;
 @Component
 public class AssemblerProgreso implements RepresentationModelAssembler<Progreso, EntityModel<Progreso>> {
 
-    // Ruta del Gateway hacia el microservicio de clientes
-    private static final String GATEWAY_URL_CLIENTE = "http://localhost:8080/api/clientes/";
+    
+    private static final String CLIENTE_URL = "http://localhost:8087/clientes/";
 
     @Override
     public EntityModel<Progreso> toModel(Progreso progreso) {
         
-        Link linkCliente = Link.of(GATEWAY_URL_CLIENTE + progreso.getClienteId()).withRel("cliente-info");
+        
+        Link linkCliente = Link.of(CLIENTE_URL + progreso.getClienteId()).withRel("cliente-info");
 
         return EntityModel.of(progreso,
             linkTo(methodOn(ProgresoController.class).obtenerPorId(progreso.getId())).withSelfRel(),

@@ -20,7 +20,7 @@ services:
     build: .
     container_name: progreso-servicio
     ports:
-      - "8085:8085"
+      - "8090:8090"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sistema-gimnasio-progreso
       SPRING_DATASOURCE_USERNAME: root

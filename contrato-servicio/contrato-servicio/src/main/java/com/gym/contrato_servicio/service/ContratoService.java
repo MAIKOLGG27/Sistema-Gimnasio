@@ -12,7 +12,7 @@ public class ContratoService {
     @Autowired
     private ContratoRepository repo;
 
-    // MÉTODO NUEVO NECESARIO PARA HATEOAS
+    
     public ContratoModel obtenerPorId(Long id) {
         return repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: El contrato con id " + id + " no existe"));
