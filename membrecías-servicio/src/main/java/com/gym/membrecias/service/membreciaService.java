@@ -14,7 +14,7 @@ public class membreciaService {
     @Autowired
     private membreciaRepository repo;
 
-    // Dejamos solo este método para buscar por ID
+    
     public membreciaModel obtenerPorId(Long id){
         return repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Error: La membresia con el id " + id + " no existe"));
