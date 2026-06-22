@@ -91,9 +91,9 @@ Los siguientes servicios aplican validaciones con `jakarta.validation` en sus mo
 - **cliente-servicio** — campos obligatorios en el modelo de cliente
 - **reserva-servicio** — campos obligatorios en el modelo de reserva
 - **actividades-deportivas-servicio** — campos obligatorios en el modelo de actividad
-- **progreso-servicio** — `clienteId`, `peso` y `porcentajeGrasa` tienen `@NotNull` en el modelo, pero el controlador **no usa `@Valid`** y no cuenta con `GlobalExceptionHandler`, por lo que las validaciones no se activan en tiempo de ejecución
+- **progreso-servicio** — `clienteId`, `peso` y `porcentajeGrasa` tienen `@NotNull` en el modelo, pero el controlador **no usa `@Valid`**, por lo que las validaciones no se activan en tiempo de ejecución.
 
-Los errores de validación son capturados globalmente por un `GlobalExceptionHandler` en los servicios que lo implementan completamente (todos excepto `progreso-servicio`).
+Los errores de validación son capturados globalmente por un `GlobalExceptionHandler` en los servicios que lo implementan completamente.
 
 ---
 
